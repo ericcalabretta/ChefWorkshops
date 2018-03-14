@@ -26,14 +26,14 @@ The following is explained:
 
 ## Instructions
 
-* MongoDB installation instructions - using Chef code - are contained in `install.rb` to complete the installation
+* MongoDB installation instructions, `using Chef code`, are contained in `install.rb` to complete the installation
 * Chef [Resources Reference](https://docs.chef.io/resources.html) was used to find the most appropriate Chef resources for each task
 
 ## Execution Instructions
 
 Install xxx
 * notes here
->Command: chef-client --local-mode hello.rb
+>Command: `chef-client --local-mode hello.rb`
 
 
 ## Approach
