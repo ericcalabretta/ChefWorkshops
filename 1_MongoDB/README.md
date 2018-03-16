@@ -29,20 +29,39 @@ The following is explained:
 * MongoDB installation instructions, `using Chef code`, are contained in `install.rb` to complete the installation
 * Chef [Resources Reference](https://docs.chef.io/resources.html) was used to find the most appropriate Chef resources for each task
 
-## Execution Instructions
-
-Install xxx
-* notes here
->Command: `chef-client --local-mode hello.rb`
-
-
 ## Approach
 
 * Develop directly on Ubuntu machine
-  * Cookbook developed using text editor, uploaded to Ubuntu machine, `chef-client` executed in `--local-mode`
+  * Recipes developed using text editor, uploaded to Ubuntu machine, `chef-client` executed in `--local-mode`
   * ChefDK installed on the Ubuntu machine
 
 ## Resources Used
 
 * [Chef Documentation](http://docs.chef.io) was used to identify and use resources to model the desired state of the infrastructure
 * [MongoDB Community Edition on Ubuntu Installation Instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+
+
+## Execution Instructions
+
+* Install Chef DK on Ubuntu
+
+* Create cookbook directory in chef repository
+>Command: `mkdir -p /home/walt/chef_repo/cookbooks`
+
+* Create cookbook - chef_workshop
+>Command: `chef generate cookbook cookbooks/chef_workshop`
+
+* Run cookbook - install.rb
+>Command: `sudo chef-client --local-mode --runlist 'recipe[chef_workshop::install]'`
+
+* Confirm mongo db is up
+>Commands:
+>`sudo service mongod status`
+>`cat /var/log/mongodb/mongod.log`
+>`grep connections /var/log/mongodb/mongod.log`
+
+* Login to mongodb
+>Commands:
+>`mongo`
+>`show dbs`
+

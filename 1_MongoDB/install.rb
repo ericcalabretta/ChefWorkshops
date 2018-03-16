@@ -4,15 +4,29 @@
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
+# test for Ubuntu platform (debian)
+if node['platform_family'] == 'debian'
 
-apt_update 'Update the apt cache daily' do
-  frequency 86_400
-  action :periodic
+	# update daily
+	apt_update 'Update the apt cache daily' do
+		frequency 86_400
+		action :periodic
+	end
+
+	# create list file
+	file '/etc/apt/sources.list.d/mongodb-org-3.6.list' do
+		content 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse '
+		mode '0644'
+		owner 'root'
+		group 'root'
+	end
 end
 
-package 'mongodb'
+# install mongodb package
+package 'mongodb-org'
 
-service 'mongodb' do
+# enable and start service
+service 'mongod' do
 	supports status: true
 	action [:enable, :start]
 end
