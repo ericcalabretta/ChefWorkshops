@@ -46,7 +46,7 @@ The following is explained:
 * Install ChefDK on Ubuntu
 
 * Create cookbook directory in chef repository
-  * `mkdir -p /home/walt/chef_repo/cookbooks`
+  * `mkdir -p ~/chef_repo/cookbooks`
 
 * Create cookbook - chef_workshop
   * `chef generate cookbook cookbooks/chef_workshop`
