@@ -46,20 +46,20 @@ The following is explained:
 * Install ChefDK on Ubuntu
 
 * Create cookbook directory in chef repository
-`mkdir -p /home/walt/chef_repo/cookbooks`
+  * `mkdir -p /home/walt/chef_repo/cookbooks`
 
 * Create cookbook - chef_workshop
-`chef generate cookbook cookbooks/chef_workshop`
+  * `chef generate cookbook cookbooks/chef_workshop`
 
 * Run cookbook - install.rb
-`sudo chef-client --local-mode --runlist 'recipe[chef_workshop::install]'`
+  * `sudo chef-client --local-mode --runlist 'recipe[chef_workshop::install]'`
 
 * Confirm mongo db is up
-`sudo service mongod status`
-`cat /var/log/mongodb/mongod.log`
-`grep connections /var/log/mongodb/mongod.log`
+  * `sudo service mongod status`
+  * `cat /var/log/mongodb/mongod.log`
+  * `grep connections /var/log/mongodb/mongod.log`
 
 * Login to mongodb and list databases
-`mongo`
-`show dbs`
+  * `mongo`
+  * `show dbs`
 
