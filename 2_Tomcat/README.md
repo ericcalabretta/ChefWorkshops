@@ -1,10 +1,10 @@
 # Install and Configure Apache Tomcat
 
-Apache Tomcat (http://tomcat.apache.org/) is an open source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process
+[Apache Tomcat](http://tomcat.apache.org/) is an open source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process
 
 ## Goal
 
-Use Chef to successfully install Apache Tomcat on Ubuntu
+Use Chef to successfully install Apache Tomcat on [Ubuntu](https://www.ubuntu.com/download/desktop)
 
 ## Success Criteria Demonstrated
 
@@ -55,5 +55,5 @@ The following is explained:
   * `sudo chef-client --local-mode --runlist 'recipe[chef_workshop::install_tomcat]'`
 
 * Login to tomcat
-  * `curl http://ubuntu:8080`
+  * `curl http://your_ubuntu_tomcat_hostname_here:8080`
 
