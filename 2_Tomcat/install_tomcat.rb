@@ -38,10 +38,11 @@ end
 # https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.9/bin/apache-tomcat-8.5.9.tar.gz
 #
 # $ cd /tmp
-#$ wget http://apache.cs.utah.edu/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
+# $ wget http://apache.cs.utah.edu/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
 #
 src_url = 'https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.9/bin'
-src_filename = 'apache-tomcat-8.5.9.tar.gz'
+tomcat_version = 'apache-tomcat-8.5.9'
+src_filename = "#{tomcat_version}.tar.gz"
 src_filepath = "/tmp/#{src_filename}"
 remote_file "#{src_filepath}" do
 	source "#{src_url}/#{src_filename}"
@@ -55,16 +56,50 @@ end
 # $ sudo mkdir /opt/tomcat
 # $ sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 #
-puts "Extract tomcat binary code here..."
+tomcat_directory = '/opt/tomcat'
+directory "#{tomcat_directory}" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+execute 'extract_tomcat' do
+  command <<-EOF
+    tar xzf #{src_filepath} -C #{tomcat_directory}
+    EOF
+  not_if { Dir.exist?("#{tomcat_directory}/#{tomcat_version}") }
+end
 
 # Update file and directory permissions
 #
 # $ sudo chgrp -R tomcat /opt/tomcat
+execute 'change_tomcat_group' do
+  command "chgrp -R tomcat #{tomcat_directory}/#{tomcat_version}"
+end
+
 # $ sudo chmod -R g+r conf
+execute 'change_conf_file_privileges' do
+	cwd "#{tomcat_directory}/#{tomcat_version}"
+  command "chmod -R g+r conf"
+end
+
 # $ sudo chmod g+x conf
+execute 'change_conf_directory_privileges' do
+	cwd "#{tomcat_directory}/#{tomcat_version}"
+  command "chmod g+x conf"
+end
+
 # $ sudo chown -R tomcat webapps/ work/ temp/ logs/
 #
-puts "Update file and directory permissions code here..."
+execute 'change_tomcat_directory_privileges' do
+	cwd "#{tomcat_directory}/#{tomcat_version}"
+	command <<-EOF
+		chown -R tomcat webapps/
+		chown -R tomcat work/
+		chown -R tomcat temp/
+		chown -R tomcat logs/
+		EOF
+end
 
 # Install the Systemd Unit File
 #
