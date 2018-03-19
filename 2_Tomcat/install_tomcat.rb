@@ -105,18 +105,38 @@ end
 #
 # $ sudo vi /etc/systemd/system/tomcat.service
 #
-puts "Install the Systemd Unit File (using git) code here..."
+# repository 'git://github.com/waltbaaske/ChefWorkshops/blob/master/2_Tomcat/tomcat.service'
+#
+# git '/etc/systemd/system/tomcat.service' do
+#   repository 'git://github.com/waltbaaske/ChefWorkshops'
+#   revision 'master'
+#   action :sync
+# end
+
+cookbook_file '/etc/systemd/system/tomcat.service' do
+  source 'tomcat.service'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
 
 # Reload Systemd to load the Tomcat Unit file
 #
 # $ sudo systemctl daemon-reload
 #
-puts "Reload Systemd to load the Tomcat Unit file code here..."
+service 'tomcat reload' do
+	supports status: true
+	action [:reload]
+end
 
 # Ensure `tomcat` is started and enabled
 #
 # $ sudo systemctl start tomcat
 # $ sudo systemctl enable tomcat
 #
-puts "Ensure `tomcat` is started and enabled code here..."
+service 'tomcat' do
+	supports status: true
+	action [:enable, :start]
+end
 
