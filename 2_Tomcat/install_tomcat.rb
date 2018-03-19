@@ -105,14 +105,6 @@ end
 #
 # $ sudo vi /etc/systemd/system/tomcat.service
 #
-# repository 'git://github.com/waltbaaske/ChefWorkshops/blob/master/2_Tomcat/tomcat.service'
-#
-# git '/etc/systemd/system/tomcat.service' do
-#   repository 'git://github.com/waltbaaske/ChefWorkshops'
-#   revision 'master'
-#   action :sync
-# end
-
 cookbook_file '/etc/systemd/system/tomcat.service' do
   source 'tomcat.service'
   owner 'root'
